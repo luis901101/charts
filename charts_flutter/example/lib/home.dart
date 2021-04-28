@@ -62,6 +62,14 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     var galleries = <Widget>[];
 
+    // Add example pie charts.
+    galleries.addAll(
+        pieGalleries.map((gallery) => gallery.buildGalleryListTile(context)));
+
+    // Add example combo charts.
+    galleries.addAll(
+        comboGalleries.map((gallery) => gallery.buildGalleryListTile(context)));
+
     galleries.addAll(
         a11yGalleries.map((gallery) => gallery.buildGalleryListTile(context)));
 
@@ -81,14 +89,6 @@ class Home extends StatelessWidget {
     galleries.addAll(scatterPlotGalleries
         .map((gallery) => gallery.buildGalleryListTile(context)));
 
-    // Add example pie charts.
-    galleries.addAll(
-        comboGalleries.map((gallery) => gallery.buildGalleryListTile(context)));
-
-    // Add example pie charts.
-    galleries.addAll(
-        pieGalleries.map((gallery) => gallery.buildGalleryListTile(context)));
-
     // Add example custom axis.
     galleries.addAll(
         axesGalleries.map((gallery) => gallery.buildGalleryListTile(context)));
@@ -106,12 +106,13 @@ class Home extends StatelessWidget {
 
     _setupPerformance();
 
-    return new Scaffold(
-      drawer: new GalleryDrawer(
+    return Scaffold(
+      drawer: GalleryDrawer(
           showPerformanceOverlay: showPerformanceOverlay,
           onShowPerformanceOverlayChanged: onShowPerformanceOverlayChanged),
-      appBar: new AppBar(title: new Text(defaultConfig.appName)),
-      body: new ListView(padding: kMaterialListPadding, children: galleries),
+      appBar: AppBar(title: Text(defaultConfig.appName)),
+      body: Scrollbar(
+          child: ListView(padding: kMaterialListPadding, children: galleries)),
     );
   }
 
